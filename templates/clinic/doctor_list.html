@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <h1>Doctor List</h1>
+    <p>Choose a doctor to view available appointment slots.</p>
+</section>
+
+<div class="doctor-grid">
+    {% for doctor in doctors %}
+        <div class="card">
+            <div class="card-header">
+                <h2>{{ doctor.name }}</h2>
+                {% if doctor.is_active %}
+                    <span class="badge badge-active">Active</span>
+                {% else %}
+                    <span class="badge badge-inactive">Inactive</span>
+                {% endif %}
+            </div>
+            <p class="doctor-specialty">{{ doctor.specialty }}</p>
+            <p class="muted-text">{{ doctor.bio|default:"No biography available." }}</p>
+            <a href="{% url 'clinic:doctor_detail' doctor.pk %}" class="btn btn-outline">View Details</a>
+        </div>
+    {% empty %}
+        <div class="empty-box">No doctors have been added yet.</div>
+    {% endfor %}
+</div>
+{% endblock %}
