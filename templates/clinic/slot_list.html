@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <h1>Available Appointment Slots</h1>
+    <p>Browse future slots that are still open for booking.</p>
+</section>
+
+<div class="card">
+    <form method="get" class="simple-form filter-form">
+        <p>
+            <label for="doctor-filter">Filter by doctor</label>
+            <select id="doctor-filter" name="doctor">
+                <option value="">All doctors</option>
+                {% for doctor in doctors %}
+                    <option value="{{ doctor.pk }}" {% if selected_doctor == doctor.pk|stringformat:"s" %}selected{% endif %}>
+                        {{ doctor.name }} - {{ doctor.specialty }}
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Apply Filter</button>
+            <a href="{% url 'clinic:slot_list' %}" class="btn btn-outline">Clear</a>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    {% if slots %}
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>Doctor</th>
+                    <th>Specialty</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for slot in slots %}
+                    <tr>
+                        <td>{{ slot.doctor.name }}</td>
+                        <td>{{ slot.doctor.specialty }}</td>
+                        <td>{{ slot.date }}</td>
+                        <td>{{ slot.get_slot_index_display }}</td>
+                        <td>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'clinic:book_appointment' slot.pk %}" class="btn btn-primary btn-small">Book</a>
+                            {% else %}
+                                <a href="{% url 'clinic:login' %}?next={{ request.get_full_path }}" class="btn btn-outline btn-small">Login to Book</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-box">No matching appointment slots are available right now.</div>
+    {% endif %}
+</div>
+{% endblock %}

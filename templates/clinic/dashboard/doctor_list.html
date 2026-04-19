@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <span class="page-eyebrow">Dashboard</span>
+    <h1>Doctor Management</h1>
+    <p>Maintain doctor profiles before patients start booking appointments.</p>
+</section>
+
+<div class="summary-grid">
+    <div class="summary-card">
+        <p class="summary-label">Total Doctors</p>
+        <p class="summary-value">{{ doctors|length }}</p>
+    </div>
+    <div class="summary-card">
+        <p class="summary-label">Active Doctors</p>
+        <p class="summary-value">{{ active_doctors_count }}</p>
+    </div>
+</div>
+
+<div class="toolbar-row">
+    <div class="toolbar-group">
+        <a href="{% url 'clinic:dashboard_home' %}" class="btn btn-outline">Dashboard Home</a>
+        <a href="{% url 'clinic:dashboard_doctor_add' %}" class="btn btn-primary">Add Doctor</a>
+        <a href="{% url 'clinic:dashboard_slot_list' %}" class="btn btn-outline">Slot Management</a>
+        <a href="{% url 'clinic:dashboard_appointment_list' %}" class="btn btn-outline">Appointment Management</a>
+        <a href="{% url 'clinic:dashboard_patient_list' %}" class="btn btn-outline">Patient Management</a>
+    </div>
+</div>
+
+<div class="card">
+    {% if doctors %}
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Specialty</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for doctor in doctors %}
+                    <tr>
+                        <td>{{ doctor.name }}</td>
+                        <td>{{ doctor.specialty }}</td>
+                        <td>{{ doctor.email|default:"-" }}</td>
+                        <td>
+                            {% if doctor.is_active %}
+                                <span class="status-pill status-active">Active</span>
+                            {% else %}
+                                <span class="status-pill status-inactive">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'clinic:dashboard_doctor_edit' doctor.pk %}" class="btn btn-outline btn-small">Edit</a>
+                            <a href="{% url 'clinic:dashboard_doctor_delete' doctor.pk %}" class="btn btn-danger btn-small">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-box">No doctor records have been created yet.</div>
+    {% endif %}
+</div>
+{% endblock %}

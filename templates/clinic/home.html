@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="welcome-hero">
+    <span class="page-eyebrow">Clinic Booking System</span>
+    <h1>Welcome to PikiOra Clinic</h1>
+    <p>Please log in to continue. New users can register for a patient account.</p>
+
+    <div class="form-actions">
+        <a href="{% url 'clinic:login' %}" class="btn btn-primary">Login</a>
+        <a href="{% url 'clinic:register' %}" class="btn btn-outline">Register as Patient</a>
+    </div>
+</div>
+
+<div class="summary-grid">
+    <div class="summary-card">
+        <p class="summary-label">Active Doctors</p>
+        <p class="summary-value">{{ active_doctors_count }}</p>
+    </div>
+    <div class="summary-card">
+        <p class="summary-label">Available Slots</p>
+        <p class="summary-value">{{ available_slots_count }}</p>
+    </div>
+</div>
+{% endblock %}

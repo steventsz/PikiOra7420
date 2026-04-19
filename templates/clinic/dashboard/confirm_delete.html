@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-page">
+    <div class="card form-card form-card-small">
+        <h1>{{ page_title }}</h1>
+        <p>Are you sure you want to delete <strong>{{ object_label }}</strong>?</p>
+
+        {% if warning_text %}
+            <div class="message message-warning">{{ warning_text }}</div>
+        {% endif %}
+
+        <form method="post" class="simple-form">
+            {% csrf_token %}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                <a href="{{ back_url }}" class="btn btn-outline">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

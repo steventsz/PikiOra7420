@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-page">
+    <div class="card form-card form-card-small">
+        <h1>Cancel Appointment</h1>
+        <p>Are you sure you want to cancel this appointment?</p>
+
+        <div class="detail-panel">
+            <p><strong>Doctor:</strong> {{ appointment.slot.doctor.name }}</p>
+            <p><strong>Date:</strong> {{ appointment.slot.date }}</p>
+            <p><strong>Time:</strong> {{ appointment.slot.get_slot_index_display }}</p>
+            <p><strong>Status:</strong> {{ appointment.get_status_display }}</p>
+        </div>
+
+        <form method="post" class="simple-form">
+            {% csrf_token %}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-danger">Confirm Cancel</button>
+                <a href="{{ back_url }}" class="btn btn-outline">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

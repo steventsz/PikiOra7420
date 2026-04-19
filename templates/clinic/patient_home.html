@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <span class="page-eyebrow">Patient Portal</span>
+    <h1>Welcome, {{ user.get_full_name|default:user.username }}</h1>
+    <p>Use this page to view doctors, check available slots, and manage your appointments.</p>
+</section>
+
+<div class="summary-grid">
+    <div class="summary-card">
+        <p class="summary-label">Upcoming Appointments</p>
+        <p class="summary-value">{{ upcoming_appointments_count }}</p>
+    </div>
+    <div class="summary-card">
+        <p class="summary-label">Active Doctors</p>
+        <p class="summary-value">{{ active_doctors_count }}</p>
+    </div>
+    <div class="summary-card">
+        <p class="summary-label">Available Slots</p>
+        <p class="summary-value">{{ available_slots_count }}</p>
+    </div>
+</div>
+
+<div class="doctor-grid">
+    <div class="card">
+        <h2>My Appointments</h2>
+        <p class="muted-text">Review your booked appointments, update notes, or cancel a booking.</p>
+        <a href="{% url 'clinic:my_appointments' %}" class="btn btn-primary">View My Appointments</a>
+    </div>
+
+    <div class="card">
+        <h2>Browse Doctors</h2>
+        <p class="muted-text">Check doctor profiles and specialties before making a booking.</p>
+        <a href="{% url 'clinic:doctor_list' %}" class="btn btn-primary">View Doctors</a>
+    </div>
+
+    <div class="card">
+        <h2>Browse Slots</h2>
+        <p class="muted-text">See future available slots and book the time that suits you.</p>
+        <a href="{% url 'clinic:slot_list' %}" class="btn btn-primary">View Slots</a>
+    </div>
+</div>
+{% endblock %}

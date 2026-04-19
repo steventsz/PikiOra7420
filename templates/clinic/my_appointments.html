@@ -3,7 +3,7 @@
 {% block content %}
 <section class="page-header">
     <h1>My Appointments</h1>
-    <p>View your booked, cancelled, and completed appointments.</p>
+    <p>Review your upcoming appointments, update notes, or cancel a booking if needed.</p>
 </section>
 
 <div class="card">
@@ -17,7 +17,7 @@
                         <th>Time</th>
                         <th>Status</th>
                         <th>Notes</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,10 +30,8 @@
                             <td>{{ appointment.notes|default:"-" }}</td>
                             <td>
                                 {% if appointment.status == "booked" %}
-                                    <form method="post" action="{% url 'clinic:cancel_appointment' appointment.pk %}" class="inline-form" onsubmit="return confirm('Cancel this appointment?');">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-danger btn-small">Cancel</button>
-                                    </form>
+                                    <a href="{% url 'clinic:edit_appointment' appointment.pk %}" class="btn btn-outline btn-small">Edit Notes</a>
+                                    <a href="{% url 'clinic:cancel_appointment' appointment.pk %}" class="btn btn-danger btn-small">Cancel</a>
                                 {% else %}
                                     <span class="muted-text">No action</span>
                                 {% endif %}

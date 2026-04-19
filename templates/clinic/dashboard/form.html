@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-page">
+    <div class="card form-card">
+        <span class="page-eyebrow">Dashboard Form</span>
+        <h1>{{ page_title }}</h1>
+        <p class="form-intro">Check the current details below, update the form, and then click "Save Changes".</p>
+
+        {% if appointment %}
+            <div class="detail-panel">
+                <p><strong>Patient:</strong> {{ appointment.patient.username }}</p>
+                <p><strong>Doctor:</strong> {{ appointment.slot.doctor.name }}</p>
+                <p><strong>Date:</strong> {{ appointment.slot.date }}</p>
+                <p><strong>Time:</strong> {{ appointment.slot.get_slot_index_display }}</p>
+            </div>
+        {% endif %}
+
+        <form method="post" class="simple-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="{{ back_url }}" class="btn btn-outline">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

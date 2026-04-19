@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <span class="page-eyebrow">Dashboard</span>
+    <h1>Slot Management</h1>
+    <p>Create and manage the appointment slots that patients can book.</p>
+</section>
+
+<div class="summary-grid">
+    <div class="summary-card">
+        <p class="summary-label">Total Slots</p>
+        <p class="summary-value">{{ slots|length }}</p>
+    </div>
+    <div class="summary-card">
+        <p class="summary-label">Available Slots</p>
+        <p class="summary-value">{{ available_slots_count }}</p>
+    </div>
+</div>
+
+<div class="toolbar-row">
+    <div class="toolbar-group">
+        <a href="{% url 'clinic:dashboard_home' %}" class="btn btn-outline">Dashboard Home</a>
+        <a href="{% url 'clinic:dashboard_slot_add' %}" class="btn btn-primary">Add Slot</a>
+        <a href="{% url 'clinic:dashboard_doctor_list' %}" class="btn btn-outline">Doctor Management</a>
+        <a href="{% url 'clinic:dashboard_appointment_list' %}" class="btn btn-outline">Appointment Management</a>
+        <a href="{% url 'clinic:dashboard_patient_list' %}" class="btn btn-outline">Patient Management</a>
+    </div>
+</div>
+
+<div class="card">
+    {% if slots %}
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Available</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for slot in slots %}
+                    <tr>
+                        <td>{{ slot.doctor.name }}</td>
+                        <td>{{ slot.date }}</td>
+                        <td>{{ slot.get_slot_index_display }}</td>
+                        <td>
+                            {% if slot.is_available %}
+                                <span class="status-pill status-yes">Available</span>
+                            {% else %}
+                                <span class="status-pill status-no">Unavailable</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'clinic:dashboard_slot_edit' slot.pk %}" class="btn btn-outline btn-small">Edit</a>
+                            <a href="{% url 'clinic:dashboard_slot_delete' slot.pk %}" class="btn btn-danger btn-small">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-box">No booking slots have been created yet.</div>
+    {% endif %}
+</div>
+{% endblock %}

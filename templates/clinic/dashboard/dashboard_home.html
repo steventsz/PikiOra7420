@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <span class="page-eyebrow">Dashboard</span>
+    <h1>Clinic Dashboard</h1>
+    <p>Use this custom dashboard to manage doctors, slots, appointments, and patient accounts.</p>
+</section>
+
+<div class="summary-grid">
+    <div class="summary-card">
+        <p class="summary-label">Total Doctors</p>
+        <p class="summary-value">{{ total_doctors }}</p>
+    </div>
+    <div class="summary-card">
+        <p class="summary-label">Total Patients</p>
+        <p class="summary-value">{{ total_patients }}</p>
+    </div>
+    <div class="summary-card">
+        <p class="summary-label">Total Slots</p>
+        <p class="summary-value">{{ total_slots }}</p>
+    </div>
+    <div class="summary-card">
+        <p class="summary-label">Booked Appointments</p>
+        <p class="summary-value">{{ total_booked_appointments }}</p>
+    </div>
+</div>
+
+<div class="doctor-grid">
+    <div class="card">
+        <h2>Doctor Management</h2>
+        <p class="muted-text">Add, edit, and review doctor records.</p>
+        <a href="{% url 'clinic:dashboard_doctor_list' %}" class="btn btn-primary">Manage Doctors</a>
+    </div>
+    <div class="card">
+        <h2>Slot Management</h2>
+        <p class="muted-text">Create and maintain available appointment slots.</p>
+        <a href="{% url 'clinic:dashboard_slot_list' %}" class="btn btn-primary">Manage Slots</a>
+    </div>
+    <div class="card">
+        <h2>Appointment Management</h2>
+        <p class="muted-text">View all patient bookings and update their status.</p>
+        <a href="{% url 'clinic:dashboard_appointment_list' %}" class="btn btn-primary">Manage Appointments</a>
+    </div>
+    <div class="card">
+        <h2>Patient Management</h2>
+        <p class="muted-text">Review registered patients and update account details.</p>
+        <a href="{% url 'clinic:dashboard_patient_list' %}" class="btn btn-primary">Manage Patients</a>
+    </div>
+</div>
+{% endblock %}

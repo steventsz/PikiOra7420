@@ -1,0 +1,57 @@
+from .appointment_views import (
+    BookAppointmentView,
+    CancelAppointmentView,
+    EditAppointmentView,
+    MyAppointmentsView,
+)
+from .doctor_views import DoctorDetailView, DoctorListView, SlotListView
+from .management_views import (
+    DashboardAppointmentCancelView,
+    DashboardAppointmentListView,
+    DashboardAppointmentUpdateView,
+    DashboardDoctorCreateView,
+    DashboardDoctorDeleteView,
+    DashboardDoctorListView,
+    DashboardDoctorUpdateView,
+    DashboardHomeView,
+    DashboardPatientListView,
+    DashboardPatientUpdateView,
+    DashboardSlotCreateView,
+    DashboardSlotDeleteView,
+    DashboardSlotListView,
+    DashboardSlotUpdateView,
+)
+from .user_views import (
+    HomeView,
+    PatientHomeView,
+    PatientRegisterView,
+    RoleBasedLoginView,
+)
+
+__all__ = [
+    "BookAppointmentView",
+    "CancelAppointmentView",
+    "DashboardAppointmentCancelView",
+    "DashboardAppointmentListView",
+    "DashboardAppointmentUpdateView",
+    "DashboardDoctorCreateView",
+    "DashboardDoctorDeleteView",
+    "DashboardDoctorListView",
+    "DashboardDoctorUpdateView",
+    "DashboardHomeView",
+    "DashboardPatientListView",
+    "DashboardPatientUpdateView",
+    "DashboardSlotCreateView",
+    "DashboardSlotDeleteView",
+    "DashboardSlotListView",
+    "DashboardSlotUpdateView",
+    "DoctorDetailView",
+    "DoctorListView",
+    "EditAppointmentView",
+    "HomeView",
+    "MyAppointmentsView",
+    "PatientHomeView",
+    "PatientRegisterView",
+    "RoleBasedLoginView",
+    "SlotListView",
+]

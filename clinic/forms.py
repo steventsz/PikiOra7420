@@ -7,7 +7,19 @@ from django.utils import timezone
 from .models import Appointment, AppointmentSlot, Doctor
 
 
+# Patient account forms
 class PatientRegisterForm(UserCreationForm):
+    username = forms.CharField(max_length=150)
+    password1 = forms.CharField(
+        label="Password",
+        strip=False,
+        widget=forms.PasswordInput,
+    )
+    password2 = forms.CharField(
+        label="Confirm Password",
+        strip=False,
+        widget=forms.PasswordInput,
+    )
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=False, max_length=150)
     last_name = forms.CharField(required=False, max_length=150)
@@ -22,6 +34,11 @@ class PatientRegisterForm(UserCreationForm):
             "password1",
             "password2",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.help_text = ""
 
     def clean_email(self):
         email = self.cleaned_data["email"].strip().lower()
@@ -164,7 +181,6 @@ class PatientUpdateForm(forms.ModelForm):
         if duplicate_user.exists():
             raise ValidationError("A user with this email already exists.")
         return email
-
 
 # Backward-compatible alias for the existing booking view.
 AppointmentBookingForm = PatientAppointmentForm
