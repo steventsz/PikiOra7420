@@ -1,47 +1,19 @@
 {
-
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-
   "builds": [
-
     {
-
       "src": "PikiOra7420/wsgi.py",
-
-      "use": "@vercel/python",
-
-      "config": { "maxLambdaSize":  "15mb", "runtime":  "python3.9" }
-
+      "use": "@vercel/python"
     }
-
   ],
-
   "routes": [
-
     {
-
-      "src": "/(.*)",
-
-      "dest": "PikiOra7420/wsgi.py",
-
-      "headers": {
-
-        "Access-Control-Allow-Origin": "*",
-
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS, DELETE, PUT"
-
-      }
-
+      "handle": "filesystem"
     },
-
     {
-
       "src": "/(.*)",
-
       "dest": "PikiOra7420/wsgi.py"
-
     }
-
   ]
-
 }
